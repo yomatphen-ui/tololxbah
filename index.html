@@ -244,12 +244,10 @@
       margin-bottom: 12px;
       line-height: 1.1;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      color: #fff;
     }
     .banner-title span {
-      background: linear-gradient(135deg, #fff 0%, #fca5a5 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #fca5a5;
     }
     .banner-subtitle {
       font-size: 16px;
@@ -266,11 +264,13 @@
       height: 400px;
       pointer-events: none;
       filter: drop-shadow(0 0 30px rgba(220, 38, 38, 0.5));
+      opacity: 0.9;
     }
     .banner-image img {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      filter: brightness(1.1) contrast(1.1);
     }
     .trust-badge {
       font-size: 14px;
@@ -509,6 +509,282 @@
     .faq-cta a:hover {
       background: #b91c1c;
       transform: translateY(-2px);
+    }
+
+    /* LIVE CHAT WIDGET */
+    .live-chat-widget {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 999;
+    }
+    .chat-button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      border: none;
+      box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      transition: .3s;
+      animation: pulse 2s infinite;
+      position: relative;
+    }
+    .chat-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(220, 38, 38, 0.6);
+    }
+    .chat-button.active {
+      background: #111;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+      }
+      50% {
+        box-shadow: 0 4px 30px rgba(220, 38, 38, 0.7);
+      }
+    }
+    .chat-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #22c55e;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #000;
+    }
+    .chat-box {
+      position: absolute;
+      bottom: 80px;
+      left: 0;
+      width: 380px;
+      height: 500px;
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-box.active {
+      display: flex;
+    }
+    .chat-header {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .chat-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .chat-header-text h3 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .chat-header-text p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    .chat-close-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .chat-close-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .chat-message {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      animation: messageSlideIn 0.3s;
+    }
+    @keyframes messageSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .chat-message.admin {
+      background: #dc2626;
+      color: #fff;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-message.user {
+      background: #1a1a1a;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-time {
+      font-size: 11px;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+    .chat-typing {
+      padding: 12px 16px;
+      background: #dc2626;
+      border-radius: 12px;
+      max-width: 60px;
+      display: none;
+    }
+    .chat-typing.active {
+      display: block;
+    }
+    .chat-typing span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      animation: typing 1.4s infinite;
+    }
+    .chat-typing span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .chat-typing span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes typing {
+      0%, 60%, 100% {
+        transform: translateY(0);
+      }
+      30% {
+        transform: translateY(-10px);
+      }
+    }
+    .chat-input-area {
+      padding: 16px;
+      border-top: 1px solid #1a1a1a;
+      background: #0a0a0a;
+    }
+    .chat-input-wrapper {
+      display: flex;
+      gap: 8px;
+    }
+    .chat-input {
+      flex: 1;
+      background: #111;
+      border: 1px solid #1a1a1a;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 24px;
+      outline: none;
+      font-size: 14px;
+    }
+    .chat-input:focus {
+      border-color: #dc2626;
+    }
+    .chat-send-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: #dc2626;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .2s;
+    }
+    .chat-send-btn:hover {
+      background: #b91c1c;
+      transform: scale(1.05);
+    }
+    .chat-send-btn:disabled {
+      background: #333;
+      cursor: not-allowed;
+    }
+    .quick-replies {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .quick-reply {
+      background: #111;
+      border: 1px solid #1a1a1a;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 16px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .quick-reply:hover {
+      background: #dc2626;
+      border-color: #dc2626;
+    }
+
+    /* BACK BUTTON */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: #111;
+      border: 1px solid #1a1a1a;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .back-btn:hover {
+      background: #1a1a1a;
+      border-color: #dc2626;
     }
 
     /* ADMIN PANEL */
@@ -1562,7 +1838,7 @@
             </p>
           </div>
           <div class="banner-image">
-            <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400&h=400&fit=crop" alt="Tanjiro" style="filter: hue-rotate(340deg) saturate(1.5) brightness(1.1);">
+            <img src="https://images.unsplash.com/photo-1613376023733-0a73315d9b06?w=400&h=400&fit=crop" alt="Gaming Character" style="filter: brightness(1.1) contrast(1.2) saturate(1.3);">
           </div>
         </div>
       </div>
@@ -1757,7 +2033,8 @@
   <section class="dashboard container">
     <div class="dashboard-header">
       <div>
-        <h1 class="dashboard-title">My Orders</h1>
+        <button class="back-btn" onclick="goToHome()">← Back to Home</button>
+        <h1 class="dashboard-title" style="margin-top:16px;">My Orders</h1>
         <p style="color:#777;">Manage your purchases and licenses</p>
       </div>
     </div>
@@ -1772,10 +2049,10 @@
   <section class="admin-panel container">
     <div class="admin-header">
       <div>
-        <h1 class="admin-title">⚙️ Admin Panel</h1>
+        <button class="back-btn" onclick="goToHome()">← Back to Home</button>
+        <h1 class="admin-title" style="margin-top:16px;">⚙️ Admin Panel</h1>
         <p style="color:#777;">Manage payment approvals and orders</p>
       </div>
-      <button class="btn btn-dark" onclick="goToHome()">← Back to Home</button>
     </div>
 
     <!-- Stats Cards -->
@@ -2183,6 +2460,133 @@
           { icon: '🌈', text: 'Skin Changer', desc: 'Custom skins.' },
           { icon: '🎨', text: 'Chams', desc: 'Colored players.' },
           { icon: '🔊', text: 'Sound ESP', desc: 'Audio indicators.' }
+        ]
+      }
+    },
+    {
+      id: 4,
+      name: 'Apex Legends Premium',
+      basePrice: 175000,
+      images: [
+        'https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800',
+        'https://images.unsplash.com/photo-1556438064-2d7646166914?w=800'
+      ],
+      description: 'Dominate the Apex Games with advanced aimbot, ESP, and movement enhancements. Fully undetected with regular updates.',
+      variants: [
+        { name: '1 Day Apex Premium', duration: '1 Day', price: 175000, desc: '[1 Day License To Apex Legends]', available: true },
+        { name: '3 Days Apex Premium', duration: '3 Days', price: 400000, desc: '[3 Days License To Apex Legends]', available: true },
+        { name: '1 Week Apex Premium', duration: '7 Days', price: 750000, desc: '[7 Days License To Apex Legends]', available: true },
+        { name: '1 Month Apex Premium', duration: '30 Days', price: 2000000, desc: '[31 Day License To Apex Legends]', available: true }
+      ],
+      features: {
+        keyBenefits: [
+          { icon: '✅', text: 'Undetected', desc: 'Safe from EAC anti-cheat.' },
+          { icon: '🎮', text: 'All Platforms', desc: 'PC support.' },
+          { icon: '⚡', text: 'Performance', desc: 'High FPS maintained.' },
+          { icon: '🔄', text: 'Quick Updates', desc: 'Fast patch support.' }
+        ],
+        aimbotFeatures: [
+          { icon: '🎯', text: 'Aimbot', desc: 'Precise targeting.' },
+          { icon: '🎯', text: 'Prediction', desc: 'Lead target movement.' },
+          { icon: '💥', text: 'No Recoil', desc: 'Perfect spray control.' },
+          { icon: '🦴', text: 'Bone Selector', desc: 'Choose hitbox.' }
+        ],
+        visualFeatures: [
+          { icon: '📦', text: 'Player ESP', desc: 'See all legends.' },
+          { icon: '❤️', text: 'Health ESP', desc: 'Shield and HP.' },
+          { icon: '📏', text: 'Distance', desc: 'Range indicator.' },
+          { icon: '🎒', text: 'Loot ESP', desc: 'Highlight items.' },
+          { icon: '💀', text: 'Deathbox ESP', desc: 'See loot boxes.' }
+        ],
+        miscFeatures: [
+          { icon: '🏃', text: 'Speed Boost', desc: 'Movement enhancement.' },
+          { icon: '🦘', text: 'Super Jump', desc: 'Enhanced mobility.' },
+          { icon: '🌈', text: 'Glow ESP', desc: 'Highlight enemies.' }
+        ]
+      }
+    },
+    {
+      id: 5,
+      name: 'Fortnite Premium',
+      basePrice: 125000,
+      images: [
+        'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=800',
+        'https://images.unsplash.com/photo-1559494007-9f5847c49d94?w=800'
+      ],
+      description: 'Victory Royale made easy! Advanced aimbot, ESP, and building assist features. Safe and undetected for Fortnite.',
+      variants: [
+        { name: '1 Day Fortnite Premium', duration: '1 Day', price: 125000, desc: '[1 Day License To Fortnite]', available: true },
+        { name: '3 Days Fortnite Premium', duration: '3 Days', price: 300000, desc: '[3 Days License To Fortnite]', available: true },
+        { name: '1 Week Fortnite Premium', duration: '7 Days', price: 550000, desc: '[7 Days License To Fortnite]', available: true },
+        { name: '1 Month Fortnite Premium', duration: '30 Days', price: 1500000, desc: '[31 Day License To Fortnite]', available: true }
+      ],
+      features: {
+        keyBenefits: [
+          { icon: '✅', text: 'Undetected', desc: 'Bypass BattlEye.' },
+          { icon: '🎮', text: 'PC Support', desc: 'Windows compatible.' },
+          { icon: '⚡', text: 'Instant Updates', desc: 'Same-day patches.' },
+          { icon: '🔄', text: 'HWID Reset', desc: 'Easy device change.' }
+        ],
+        aimbotFeatures: [
+          { icon: '🎯', text: 'Silent Aim', desc: 'Invisible aimbot.' },
+          { icon: '🎯', text: 'Prediction', desc: 'Hit moving targets.' },
+          { icon: '💥', text: 'Magic Bullet', desc: 'Guaranteed hits.' },
+          { icon: '👁', text: 'FOV Circle', desc: 'Visual aim area.' }
+        ],
+        visualFeatures: [
+          { icon: '📦', text: 'Player ESP', desc: 'See all players.' },
+          { icon: '❤️', text: 'Health ESP', desc: 'HP and shield.' },
+          { icon: '📏', text: 'Distance', desc: 'Range display.' },
+          { icon: '🎒', text: 'Loot ESP', desc: 'Weapon and items.' },
+          { icon: '📦', text: 'Container ESP', desc: 'Chests and ammo.' }
+        ],
+        miscFeatures: [
+          { icon: '🏗️', text: 'Build Assist', desc: 'Auto build structures.' },
+          { icon: '🎨', text: 'Skin Changer', desc: 'Unlock all skins.' },
+          { icon: '🌈', text: 'Pickaxe Changer', desc: 'Custom tools.' }
+        ]
+      }
+    },
+    {
+      id: 6,
+      name: 'Warzone Premium',
+      basePrice: 190000,
+      images: [
+        'https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=800',
+        'https://images.unsplash.com/photo-1542751110-97427bbecf20?w=800'
+      ],
+      description: 'Call of Duty Warzone domination tool. Advanced aimbot, wallhack, and radar with smooth performance. Ricochet safe.',
+      variants: [
+        { name: '1 Day Warzone Premium', duration: '1 Day', price: 190000, desc: '[1 Day License To Warzone]', available: true },
+        { name: '3 Days Warzone Premium', duration: '3 Days', price: 425000, desc: '[3 Days License To Warzone]', available: true },
+        { name: '1 Week Warzone Premium', duration: '7 Days', price: 775000, desc: '[7 Days License To Warzone]', available: true },
+        { name: '1 Month Warzone Premium', duration: '30 Days', price: 2100000, desc: '[31 Day License To Warzone]', available: true }
+      ],
+      features: {
+        keyBenefits: [
+          { icon: '✅', text: 'Ricochet Safe', desc: 'Bypass anti-cheat.' },
+          { icon: '🔧', text: 'Windows 11', desc: 'Full compatibility.' },
+          { icon: '⚡', text: 'Performance', desc: 'No FPS drop.' },
+          { icon: '🔄', text: 'Daily Updates', desc: 'Always working.' }
+        ],
+        aimbotFeatures: [
+          { icon: '🎯', text: 'Smart Aimbot', desc: 'Human-like aiming.' },
+          { icon: '🎯', text: 'Bullet Drop', desc: 'Auto compensation.' },
+          { icon: '💥', text: 'No Recoil', desc: 'Zero weapon recoil.' },
+          { icon: '🦴', text: 'Bone Priority', desc: 'Headshot priority.' }
+        ],
+        visualFeatures: [
+          { icon: '📦', text: 'Player ESP', desc: 'Full player info.' },
+          { icon: '💀', text: 'Skeleton ESP', desc: 'Bone display.' },
+          { icon: '❤️', text: 'Health Bar', desc: 'HP and armor.' },
+          { icon: '🔫', text: 'Weapon Info', desc: 'Show loadout.' },
+          { icon: '📏', text: 'Distance', desc: 'Range indicator.' },
+          { icon: '🗺', text: 'Radar', desc: '2D map overlay.' }
+        ],
+        miscFeatures: [
+          { icon: '🌈', text: 'Operator Unlocker', desc: 'All operators.' },
+          { icon: '🔫', text: 'Weapon Unlocker', desc: 'All weapons.' },
+          { icon: '🎨', text: 'Camo Unlocker', desc: 'All camos.' }
         ]
       }
     }
@@ -3105,6 +3509,203 @@
       }
     }
   });
+</script>
+
+<!-- Live Chat Widget -->
+<div class="live-chat-widget">
+  <button class="chat-button" onclick="toggleChat()" id="chatButton">
+    💬
+    <span class="chat-badge" id="chatBadge" style="display:none;">1</span>
+  </button>
+  
+  <div class="chat-box" id="chatBox">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-avatar">🎮</div>
+        <div class="chat-header-text">
+          <h3>MARGA2HIGH Support</h3>
+          <p>Online • Reply in minutes</p>
+        </div>
+      </div>
+      <button class="chat-close-btn" onclick="toggleChat()">×</button>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message admin">
+        Hi! Welcome to MARGA2HIGH Support 👋<br>
+        How can we help you today?
+        <div class="chat-time">Just now</div>
+      </div>
+      
+      <div class="chat-typing" id="chatTyping">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    
+    <div class="chat-input-area">
+      <div class="quick-replies" id="quickReplies">
+        <button class="quick-reply" onclick="sendQuickReply('Product Info')">📦 Product Info</button>
+        <button class="quick-reply" onclick="sendQuickReply('Payment Help')">💳 Payment Help</button>
+        <button class="quick-reply" onclick="sendQuickReply('License Issue')">🔑 License Issue</button>
+      </div>
+      <div class="chat-input-wrapper">
+        <input 
+          type="text" 
+          class="chat-input" 
+          id="chatInput" 
+          placeholder="Type your message..."
+          onkeypress="handleChatKeypress(event)"
+        >
+        <button class="chat-send-btn" onclick="sendMessage()">
+          ➤
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let chatOpen = false;
+  let chatMessages = [
+    {
+      type: 'admin',
+      text: 'Hi! Welcome to MARGA2HIGH Support 👋<br>How can we help you today?',
+      time: 'Just now'
+    }
+  ];
+
+  function toggleChat() {
+    chatOpen = !chatOpen;
+    const chatBox = document.getElementById('chatBox');
+    const chatButton = document.getElementById('chatButton');
+    const chatBadge = document.getElementById('chatBadge');
+    
+    if (chatOpen) {
+      chatBox.classList.add('active');
+      chatButton.classList.add('active');
+      chatBadge.style.display = 'none';
+      
+      // Focus input
+      setTimeout(() => {
+        document.getElementById('chatInput').focus();
+      }, 100);
+    } else {
+      chatBox.classList.remove('active');
+      chatButton.classList.remove('active');
+    }
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    // Add user message
+    addMessage('user', message);
+    input.value = '';
+    
+    // Show typing indicator
+    showTyping();
+    
+    // Simulate admin response
+    setTimeout(() => {
+      hideTyping();
+      respondToMessage(message);
+    }, 1500);
+  }
+
+  function sendQuickReply(text) {
+    sendMessage();
+    document.getElementById('chatInput').value = text;
+    sendMessage();
+  }
+
+  function addMessage(type, text) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const time = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `chat-message ${type}`;
+    messageDiv.innerHTML = `
+      ${text}
+      <div class="chat-time">${time}</div>
+    `;
+    
+    // Insert before typing indicator
+    const typing = document.getElementById('chatTyping');
+    messagesContainer.insertBefore(messageDiv, typing);
+    
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Show badge if chat closed
+    if (!chatOpen && type === 'admin') {
+      document.getElementById('chatBadge').style.display = 'flex';
+    }
+  }
+
+  function showTyping() {
+    document.getElementById('chatTyping').classList.add('active');
+    const messagesContainer = document.getElementById('chatMessages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  }
+
+  function hideTyping() {
+    document.getElementById('chatTyping').classList.remove('active');
+  }
+
+  function respondToMessage(userMessage) {
+    const msg = userMessage.toLowerCase();
+    
+    let response = '';
+    
+    // Auto responses based on keywords
+    if (msg.includes('product') || msg.includes('produk') || msg.includes('game')) {
+      response = 'We offer premium cheats for:<br><br>• Valorant Internal<br>• PUBG Mobile<br>• CS2 External<br>• Apex Legends<br>• Fortnite<br>• Warzone<br><br>All products are undetected and updated regularly! 🎮';
+    } 
+    else if (msg.includes('price') || msg.includes('harga') || msg.includes('berapa')) {
+      response = 'Our products range from Rp100K to Rp200K depending on the game and duration.<br><br>We offer:<br>• 1 Day<br>• 3 Days<br>• 7 Days<br>• 1 Month<br><br>Check our products for exact pricing! 💰';
+    }
+    else if (msg.includes('payment') || msg.includes('bayar') || msg.includes('pembayaran')) {
+      response = 'We accept payment via:<br>• QRIS (GoPay, OVO, Dana, ShopeePay)<br>• Bank Transfer<br>• E-Wallet<br><br>After payment, upload proof and you\'ll get your license key within minutes! 💳';
+    }
+    else if (msg.includes('license') || msg.includes('lisensi') || msg.includes('key')) {
+      response = 'Having license issues?<br><br>Please check:<br>1. Order status in Dashboard<br>2. Wait for admin approval (5-30 mins)<br>3. License will appear in Dashboard<br><br>Need HWID reset? Join our Discord! 🔑';
+    }
+    else if (msg.includes('safe') || msg.includes('aman') || msg.includes('detected')) {
+      response = 'All our products are:<br>✅ Fully undetected<br>✅ Regularly updated<br>✅ Battle-tested<br>✅ Safe to use<br><br>We update within hours after any game patch! 🛡️';
+    }
+    else if (msg.includes('help') || msg.includes('support') || msg.includes('bantuan')) {
+      response = 'Need more help?<br><br>Join our Discord for:<br>• Live support 24/7<br>• Installation guides<br>• Community help<br>• Updates<br><br><a href="https://discord.gg/BTF7craz" target="_blank" style="color:#06b6d4;">Click here to join Discord</a> 💬';
+    }
+    else if (msg.includes('discord')) {
+      response = 'Join our Discord community!<br><br>🔗 <a href="https://discord.gg/BTF7craz" target="_blank" style="color:#06b6d4;">discord.gg/BTF7craz</a><br><br>Get instant support, updates, and connect with other users! 🎮';
+    }
+    else if (msg.includes('thanks') || msg.includes('thank') || msg.includes('terima kasih')) {
+      response = 'You\'re welcome! 😊<br><br>If you need anything else, feel free to ask or join our Discord for faster support!';
+    }
+    else {
+      response = 'Thanks for your message! 👋<br><br>For detailed support, please:<br>1. Check our FAQ section below<br>2. Join Discord: <a href="https://discord.gg/BTF7craz" target="_blank" style="color:#06b6d4;">discord.gg/BTF7craz</a><br>3. Or describe your issue in detail<br><br>How can I help you specifically?';
+    }
+    
+    addMessage('admin', response);
+  }
+
+  function handleChatKeypress(event) {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  }
+
+  // Show notification badge after 3 seconds if chat not opened
+  setTimeout(() => {
+    if (!chatOpen) {
+      document.getElementById('chatBadge').style.display = 'flex';
+    }
+  }, 3000);
 </script>
 
 </body>
