@@ -104,6 +104,11 @@
     .user-menu {
       position: relative;
     }
+    #navGuest, #navUser {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
     .user-avatar {
       width: 36px;
       height: 36px;
@@ -984,6 +989,50 @@
       background-clip: text;
       font-weight: 900;
     }
+
+    /* Game Filter Slider */
+    .game-filter-container {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 32px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .game-filter-container::-webkit-scrollbar {
+      display: none;
+    }
+    .game-filter-slider {
+      display: flex;
+      gap: 12px;
+      padding: 4px;
+      justify-content: center;
+      min-width: min-content;
+    }
+    .game-filter-btn {
+      padding: 12px 24px;
+      border: 2px solid #333;
+      background: transparent;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+    .game-filter-btn:hover {
+      border-color: #dc2626;
+      color: #dc2626;
+      transform: translateY(-2px);
+    }
+    .game-filter-btn.active {
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      border-color: #dc2626;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+    }
+
     .products-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1770,6 +1819,16 @@
       .nav { gap: 12px; }
       .dashboard-grid { grid-template-columns: 1fr; }
       .admin-stats { grid-template-columns: repeat(2, 1fr); }
+      
+      /* Game Filter Mobile */
+      .game-filter-slider {
+        justify-content: flex-start;
+        padding-left: 16px;
+      }
+      .game-filter-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -1879,7 +1938,18 @@
   <!-- Products Section -->
   <section class="products container">
     <h2 style="text-align:center;margin-bottom:12px;">Best Seller Products</h2>
-    <p style="text-align:center;color:#777;margin-bottom:40px;">Products loved by our customers</p>
+    <p style="text-align:center;color:#777;margin-bottom:24px;">Products loved by our customers</p>
+
+    <!-- Game Filter Slider -->
+    <div class="game-filter-container">
+      <div class="game-filter-slider" id="gameFilterSlider">
+        <button class="game-filter-btn active" onclick="filterByGame('all')">ALL</button>
+        <button class="game-filter-btn" onclick="filterByGame('FreeFire')">FREE FIRE</button>
+        <button class="game-filter-btn" onclick="filterByGame('Mobile Legend')">MOBILE LEGEND</button>
+        <button class="game-filter-btn" onclick="filterByGame('PUBG')">PUBG</button>
+        <button class="game-filter-btn" onclick="filterByGame('8 Ball Pool')">8 BALL POOL</button>
+      </div>
+    </div>
 
     <div class="products-grid" id="productsGrid">
       <!-- Products will be rendered here by JavaScript -->
@@ -2533,12 +2603,19 @@
   }
 
   // ==================== PRODUCTS ====================
-  function renderProducts(searchQuery = '') {
+  let currentGameFilter = 'all';
+
+  function renderProducts(searchQuery = '', gameFilter = currentGameFilter) {
     const grid = document.getElementById('productsGrid');
-    const filtered = products.filter(p => 
+    let filtered = products.filter(p => 
       p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.game.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    // Apply game filter
+    if (gameFilter !== 'all') {
+      filtered = filtered.filter(p => p.game === gameFilter);
+    }
 
     grid.innerHTML = filtered.map(product => {
       const platformText = product.platforms.join('/');
@@ -2558,6 +2635,20 @@
     if (filtered.length === 0) {
       grid.innerHTML = '<p style="text-align:center;color:#666;grid-column:1/-1;">No products found</p>';
     }
+  }
+
+  function filterByGame(game) {
+    currentGameFilter = game;
+    
+    // Update active button
+    document.querySelectorAll('.game-filter-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Re-render products with filter
+    const searchQuery = document.getElementById('searchInput').value;
+    renderProducts(searchQuery, game);
   }
 
   document.getElementById('searchInput').addEventListener('input', (e) => {
