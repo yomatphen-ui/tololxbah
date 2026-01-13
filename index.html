@@ -1789,19 +1789,15 @@
       
       <!-- Not Logged In -->
       <div id="navGuest">
+        <button class="btn btn-cyan" onclick="openAuthModal('login')">Login</button>
         <div class="cart-icon" onclick="toggleCart()">
           🛒
           <span class="cart-badge" id="cartBadge">0</span>
         </div>
-        <button class="btn btn-cyan" onclick="openAuthModal('login')">Login</button>
       </div>
 
       <!-- Logged In -->
       <div id="navUser" class="hidden">
-        <div class="cart-icon" onclick="toggleCart()">
-          🛒
-          <span class="cart-badge" id="cartBadgeUser">0</span>
-        </div>
         <div class="user-menu">
           <div class="user-avatar" onclick="toggleUserMenu()" id="userAvatar">U</div>
           <div class="user-dropdown" id="userDropdown">
@@ -1815,6 +1811,10 @@
               🚪 Logout
             </div>
           </div>
+        </div>
+        <div class="cart-icon" onclick="toggleCart()">
+          🛒
+          <span class="cart-badge" id="cartBadgeUser">0</span>
         </div>
       </div>
     </div>
